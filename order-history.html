@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order History</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="order-history.css">
+  <link rel="stylesheet" href="shared-header.css">
+  <link rel="stylesheet" href="floating-cart.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo" aria-label="Go to home page">
+        <img src="Logo.png" alt="Logo">
+      </a>
+
+      <div class="header-controls">
+        <div class="header-menu-panel" id="headerMenuPanel">
+          <nav class="nav-menu" id="primaryNav">
+            <div class="nav-item">
+              <a href="index.html">Home</a>
+            </div>
+            <div class="nav-item">
+              <a href="product.html">Our Products</a>
+            </div>
+            <div class="nav-item">
+              <a href="#">Contact Us</a>
+            </div>
+            <div class="nav-item">
+              <a href="#">About</a>
+            </div>
+            <div class="nav-item">
+              <a href="order-history.html">History</a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="header-actions">
+          <div class="user-menu" data-user-menu>
+            <a href="Login.html" class="icon-btn user-icon-btn user-menu-trigger" aria-label="Open login" aria-expanded="false" data-user-link>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M20 21a8 8 0 0 0-16 0"/>
+                <circle cx="12" cy="8" r="4"/>
+              </svg>
+            </a>
+            <div class="user-dropdown" aria-label="Account options">
+              <div class="user-dropdown-copy">
+                <span class="user-dropdown-label">Account</span>
+                <p class="user-dropdown-name" data-user-name-display>Guest account</p>
+                <p class="user-dropdown-email" data-user-email>Login or register to save your order details.</p>
+              </div>
+              <div class="user-dropdown-links" data-user-dropdown-links></div>
+            </div>
+          </div>
+          <a href="cart.html" class="icon-btn cart-icon-btn" aria-label="Open cart" data-cart-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 5h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H7"/>
+              <circle cx="10" cy="19" r="1.5"/>
+              <circle cx="17" cy="19" r="1.5"/>
+            </svg>
+            <span class="cart-badge" data-cart-count aria-live="polite">0</span>
+          </a>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-expanded="false"
+          aria-controls="headerMenuPanel"
+          aria-label="Open navigation menu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="history-page">
+    <section class="history-hero">
+      <div class="hero-copy">
+        <p class="history-kicker">Order Archive</p>
+        <h1>Track every order in one clean timeline.</h1>
+        <p class="history-intro">Open any order to inspect items, delivery details, notes, and the full order record saved to Firestore.</p>
+      </div>
+
+      <div class="hero-stats">
+        <article class="hero-stat">
+          <span>Signed in</span>
+          <strong id="historyUserEmail">Loading...</strong>
+        </article>
+        <article class="hero-stat">
+          <span>Total orders</span>
+          <strong id="historyOrderCount">0</strong>
+        </article>
+        <article class="hero-stat">
+          <span>Total value</span>
+          <strong id="historyTotalSpent">GHS 0.00</strong>
+        </article>
+      </div>
+    </section>
+
+    <section class="history-toolbar">
+      <div class="toolbar-copy">
+        <p class="toolbar-kicker">Live sync</p>
+        <h2>Your recent orders</h2>
+      </div>
+
+      <div class="toolbar-actions">
+        <button type="button" class="toolbar-btn toolbar-btn-dark" id="historyRefreshButton">Refresh</button>
+        <a href="product.html" class="toolbar-btn">Continue shopping</a>
+        <a href="cart.html" class="toolbar-btn">Open cart</a>
+        <button type="button" class="toolbar-btn" id="historyLogoutButton">Log out</button>
+      </div>
+    </section>
+
+    <p class="history-message" id="historyMessage" aria-live="polite"></p>
+
+    <section class="history-board">
+      <div class="history-list-head">
+        <p>Orders</p>
+        <span>Click any order card to view full details</span>
+      </div>
+      <div class="order-history-list" id="orderHistoryList" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-logo">
+        <img src="Logo.png" alt="TheMikhsVintage logo">
+      </div>
+      <div class="footer-brand">
+        <span class="footer-brand-name">TheMikhsVintage</span>
+        <span class="footer-brand-note">Curated vintage and fashion pieces with character</span>
+      </div>
+    </div>
+
+    <div class="footer-main">
+      <div class="footer-column">
+        <h3>Customer Service</h3>
+        <a href="#">Contact us</a>
+        <a href="#">FAQs</a>
+        <a href="#">Orders and delivery</a>
+        <a href="#">Returns and refunds</a>
+        <a href="#">Shipping and returns</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>About TheMikhsVintage</h3>
+        <a href="#">About us</a>
+        <a href="#">Partner boutiques</a>
+        <a href="#">Careers</a>
+        <a href="#">Our app</a>
+        <a href="#">Sitemap</a>
+      </div>
+
+      <div class="footer-column">
+        <h3>Community</h3>
+        <a href="#">New arrivals</a>
+        <a href="#">Refer a friend</a>
+        <a href="#">Membership</a>
+        <a href="#">Student discount</a>
+        <div class="footer-socials">
+          <a href="#">Instagram</a>
+          <a href="#">TikTok</a>
+          <a href="#">Facebook</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="footer-legal-links">
+        <a href="#">Privacy policy</a>
+        <a href="#">Terms and conditions</a>
+        <a href="#">Accessibility</a>
+      </div>
+      <p class="footer-copy">Copyright 2026 TheMikhsVintage. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div id="orderDetailsModal" class="order-modal" hidden>
+    <div class="order-modal-backdrop" data-action="close-order-details"></div>
+    <article class="order-modal-card" role="dialog" aria-modal="true" aria-labelledby="orderDetailsTitle">
+      <div class="order-modal-top">
+        <div>
+          <p class="toolbar-kicker">Order details</p>
+          <h3 id="orderDetailsTitle">Order</h3>
+        </div>
+        <button type="button" class="toolbar-btn" id="closeOrderDetailsButton">Close</button>
+      </div>
+      <div id="orderDetailsContent" class="order-details-content"></div>
+    </article>
+  </div>
+
+  <script type="module" src="auth-session.js"></script>
+  <script src="cart-utils.js"></script>
+  <script src="header-menu.js"></script>
+  <script src="floating-cart.js"></script>
+  <script type="module" src="order-history.js"></script>
+</body>
+</html>

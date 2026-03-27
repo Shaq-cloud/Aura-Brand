@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="cart.css">
+  <link rel="stylesheet" href="shared-header.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="index.html" class="logo" aria-label="Go to home page">
+        <img src="Logo.png" alt="Logo">
+      </a>
+
+      <div class="header-controls">
+        <div class="header-menu-panel" id="headerMenuPanel">
+          <nav class="nav-menu" id="primaryNav">
+            <div class="nav-item">
+              <a href="index.html">Home</a>
+            </div>
+            <div class="nav-item">
+              <a href="product.html">Our Products</a>
+            </div>
+            <div class="nav-item">
+              <a href="#">Contact Us</a>
+            </div>
+            <div class="nav-item">
+              <a href="#">About</a>
+            </div>
+            <div class="nav-item">
+              <a href="order-history.html">History</a>
+            </div>
+          </nav>
+        </div>
+
+        <div class="header-actions">
+          <div class="user-menu" data-user-menu>
+            <a href="Login.html" class="icon-btn user-icon-btn user-menu-trigger" aria-label="Open login" aria-expanded="false" data-user-link>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M20 21a8 8 0 0 0-16 0"/>
+                <circle cx="12" cy="8" r="4"/>
+              </svg>
+            </a>
+            <div class="user-dropdown" aria-label="Account options">
+              <div class="user-dropdown-copy">
+                <span class="user-dropdown-label">Account</span>
+                <p class="user-dropdown-name" data-user-name-display>Guest account</p>
+                <p class="user-dropdown-email" data-user-email>Login or register to save your order details.</p>
+              </div>
+              <div class="user-dropdown-links" data-user-dropdown-links></div>
+            </div>
+          </div>
+          <a href="cart.html" class="icon-btn cart-icon-btn" aria-label="Open cart" data-cart-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M3 5h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H7"/>
+              <circle cx="10" cy="19" r="1.5"/>
+              <circle cx="17" cy="19" r="1.5"/>
+            </svg>
+            <span class="cart-badge" data-cart-count aria-live="polite">0</span>
+          </a>
+        </div>
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-expanded="false"
+          aria-controls="headerMenuPanel"
+          aria-label="Open navigation menu"
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M4 7h16M4 12h16M4 17h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="cart-page">
+    <section class="cart-hero">
+      <p class="cart-kicker">Shopping Cart</p>
+      <h1>Your selected pieces</h1>
+      <p class="cart-intro">Review everything you added, update quantities, and keep track of your total before checkout.</p>
+    </section>
+
+    <div class="cart-page-header">
+      <h2>Items in Cart</h2>
+      <button type="button" class="ghost-btn" id="clear-cart-btn">Clear cart</button>
+    </div>
+
+    <section class="cart-layout">
+      <div class="cart-panel">
+        <div id="cart-items" class="cart-items" aria-live="polite"></div>
+      </div>
+
+      <aside class="summary-panel">
+        <h2>Order Summary</h2>
+        <div class="summary-row">
+          <span>Total items</span>
+          <strong id="summary-count">0</strong>
+        </div>
+        <div class="summary-row total-row">
+          <span>Total cost</span>
+          <strong id="summary-total">GHS 0.00</strong>
+        </div>
+        <p class="summary-note" id="checkout-note">Add items freely. Sign in when you're ready to continue to checkout.</p>
+        <button type="button" class="primary-btn" id="checkout-btn">Proceed to Checkout</button>
+        <a href="product.html" class="primary-btn">Continue shopping</a>
+      </aside>
+    </section>
+  </main>
+
+  <script type="module" src="auth-session.js"></script>
+  <script type="module" src="cart-sync.js"></script>
+  <script src="cart-utils.js"></script>
+  <script src="header-menu.js"></script>
+  <script src="cart.js"></script>
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin-dashboard.css">
+  </head>
+  <body>
+    <div class="dashboard-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <img src="Logo.png" alt="TheMikhsVintage logo" class="brand-mark">
+          <div class="brand-copy">
+            <p>The</p>
+            <p>MikhsVintage</p>
+            <h1>Admin Console</h1>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <button type="button" class="nav-item is-active" data-section-tab="overview">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-5h-5v5H5a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Overview</span>
+          </button>
+          <button type="button" class="nav-item" data-section-tab="products">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6 7.5h12M6 12h12M6 16.5h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <path d="M4.5 7.5h.01M4.5 12h.01M4.5 16.5h.01" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <span>Products</span>
+          </button>
+          <button type="button" class="nav-item" data-section-tab="orders">
+            <span class="nav-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M7 4.5v3M17 4.5v3M4.5 9h15M6 7h12a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19H6A1.5 1.5 0 0 1 4.5 17.5v-9A1.5 1.5 0 0 1 6 7Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span class="nav-item-copy">Orders <span id="ordersNavUnreadCount" class="nav-unread-badge" hidden>0</span></span>
+          </button>
+        </nav>
+
+        <section class="upgrade-card">
+          <div class="sidebar-actions">
+            <a href="index.html" class="sidebar-button sidebar-button-light">Back to Store</a>
+            <button type="button" class="sidebar-button" id="adminLogout">Log Out</button>
+          </div>
+        </section>
+      </aside>
+
+      <main class="dashboard-main">
+        <header class="topbar">
+          <label class="searchbar" aria-label="Search dashboard">
+            <span class="search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M16 16 20 20" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+            <input type="search" placeholder="Search products or orders">
+            <span class="search-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+              </svg>
+            </span>
+          </label>
+
+          
+        </header>
+
+        <section class="dashboard-section is-active section-stack" data-section-panel="overview">
+          <section class="hero-panel">
+            <p class="hero-kicker">Store overview</p>
+            <h2>Welcome back, <span id="adminDisplayName">Admin</span>!</h2>
+            <p>Here your current store overview with Firestore products, recent orders, and quick management actions.</p>
+          </section>
+
+          <section class="stats-grid">
+            <article class="stat-card stat-card-dark">
+              <div class="stat-header">
+                <span>Products</span>
+                <span class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 7h10v10H7z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M4.5 10h2.5M17 10h2.5M10 4.5V7M10 17v2.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </div>
+              <strong id="productCount">0</strong>
+              <p>Products currently saved in Firestore.</p>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-header">
+                <span>Total Orders</span>
+                <span class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 4.5v3M17 4.5v3M4.5 9h15M6 7h12a1.5 1.5 0 0 1 1.5 1.5v9A1.5 1.5 0 0 1 18 19H6A1.5 1.5 0 0 1 4.5 17.5v-9A1.5 1.5 0 0 1 6 7Z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </span>
+              </div>
+              <strong id="orderCount">0</strong>
+              <p>Orders currently loaded into the dashboard.</p>
+            </article>
+
+            <article class="stat-card">
+              <div class="stat-header">
+                <span>Order Value</span>
+                <span class="stat-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3.5c-4.7 0-8.5 3.8-8.5 8.5s3.8 8.5 8.5 8.5 8.5-3.8 8.5-8.5S16.7 3.5 12 3.5Z" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="M14.8 9.5c0-1.3-1.2-2.2-2.8-2.2-1.6 0-2.8.8-2.8 2 0 1.2.9 1.8 2.8 2.2 1.9.4 2.8 1 2.8 2.3 0 1.3-1.2 2.2-2.8 2.2-1.6 0-2.9-.8-3.2-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                    <path d="M12 6v12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  </svg>
+                </span>
+              </div>
+              <strong id="revenueTotal">GHS 0.00</strong>
+              <p>Combined value from the loaded order set.</p>
+            </article>
+          </section>
+
+          <section class="analytics-grid">
+            <article class="panel chart-panel">
+              <div class="panel-top">
+                <div>
+                  <p class="panel-kicker">Orders Overview</p>
+                  <h3>Order value and order movement</h3>
+                </div>
+              </div>
+              <div class="chart-area">
+                <div class="chart-year-row">
+                  <p id="chartYear" class="chart-year"></p>
+                </div>
+                <div class="chart-grid-lines"></div>
+                <svg viewBox="0 0 640 240" class="chart-svg" aria-hidden="true">
+                  <path d="M20 190 C 80 170, 90 80, 150 120 S 230 200, 290 130 S 380 90, 440 150 S 550 180, 620 70" class="chart-line chart-line-purple"></path>
+                  <path d="M20 210 C 80 230, 90 130, 150 160 S 230 100, 290 180 S 380 210, 440 150 S 550 120, 620 200" class="chart-line chart-line-blue"></path>
+                </svg>
+                <p id="chartMessage" class="chart-message" aria-live="polite"></p>
+                <div class="chart-axis">
+                  <span>Jun</span>
+                  <span>Jul</span>
+                  <span>Aug</span>
+                  <span>Sep</span>
+                  <span>Oct</span>
+                  <span>Nov</span>
+                  <span>Dec</span>
+                  <span>Jan</span>
+                </div>
+                <div class="chart-legend" aria-label="Chart legend">
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch chart-legend-swatch-purple" aria-hidden="true"></span>
+                    Purple line: Order value
+                  </span>
+                  <span class="chart-legend-item">
+                    <span class="chart-legend-swatch chart-legend-swatch-blue" aria-hidden="true"></span>
+                    Blue line: Orders
+                  </span>
+                </div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-top">
+                <div>
+                  <p class="panel-kicker">Top Selling Products</p>
+                  <h3>Best sellers</h3>
+                </div>
+                <button type="button" class="panel-link" id="refreshProductsButton">Refresh</button>
+              </div>
+              <p id="productMessage" class="panel-message" aria-live="polite"></p>
+              <div id="topProducts" class="top-products"></div>
+            </article>
+          </section>
+        </section>
+
+        <section class="manager-grid dashboard-section" data-section-panel="products">
+          <article class="panel">
+            <div class="panel-top">
+              <div>
+                <p class="panel-kicker">Product Manager</p>
+                <h3>Add or update a product</h3>
+              </div>
+            </div>
+
+            <form id="productForm" class="product-form">
+              <input type="hidden" id="productId">
+              <label>
+                <span>Product name</span>
+                <input type="text" id="productName" required>
+              </label>
+              <label>
+                <span>Category</span>
+                <input type="text" id="productCategory" required>
+              </label>
+              <label>
+                <span>Price (GHS)</span>
+                <input type="number" id="productPrice" min="0" step="0.01" required>
+              </label>
+              <label>
+                <span>Image URL / path</span>
+                <input type="text" id="productImage" placeholder="Eg.jpg or https://...">
+              </label>
+              <label>
+                <span>Choose image from device</span>
+                <input type="file" id="productImageFile" accept="image/*">
+              </label>
+              <div class="image-preview-card full-width" id="productImagePreviewCard" hidden>
+                <span>Selected image preview</span>
+                <img id="productImagePreview" alt="Selected product preview">
+              </div>
+              <label class="full-width">
+                <span>Description</span>
+                <textarea id="productDescription" rows="4"></textarea>
+              </label>
+              <label class="inline-toggle">
+                <input type="checkbox" id="productFeatured">
+                <span>Mark as featured</span>
+              </label>
+              <div class="form-actions full-width">
+                <button type="submit" class="primary-button" id="saveProductButton">Save Product</button>
+                <button type="button" class="ghost-button" id="resetProductButton">Clear Form</button>
+              </div>
+            </form>
+          </article>
+
+          <article class="panel">
+            <div class="panel-top">
+              <div>
+                <p class="panel-kicker">Catalog</p>
+                <h3>Saved products</h3>
+              </div>
+            </div>
+            <div id="productList" class="catalog-list" aria-live="polite"></div>
+          </article>
+        </section>
+
+        <section class="panel orders-panel dashboard-section" data-section-panel="orders">
+          <div class="panel-top">
+            <div>
+              <p class="panel-kicker">Latest Orders</p>
+              <h3>Recent order activity <span id="unreadOrderCount" class="count-badge">0 unread</span></h3>
+            </div>
+            <button type="button" class="panel-link" id="refreshOrdersButton">Refresh</button>
+          </div>
+          <p id="orderMessage" class="panel-message" aria-live="polite"></p>
+          <div class="orders-table-wrap">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>Order ID</th>
+                  <th>Customer</th>
+                  <th>Order Date</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Items</th>
+                </tr>
+              </thead>
+              <tbody id="orderList"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <div id="orderDetailsModal" class="order-modal" hidden>
+          <div class="order-modal-backdrop" data-action="close-order-details"></div>
+          <article class="order-modal-card" role="dialog" aria-modal="true" aria-labelledby="orderDetailsTitle">
+            <div class="order-modal-top">
+              <div>
+                <p class="panel-kicker">Order details</p>
+                <h3 id="orderDetailsTitle">Order</h3>
+              </div>
+              <button type="button" class="panel-link" id="closeOrderDetailsButton">Close</button>
+            </div>
+            <div id="orderDetailsContent" class="order-details-content"></div>
+          </article>
+        </div>
+
+      </main>
+    </div>
+
+    <script type="module" src="admin-dashboard.js"></script>
+  </body>
+</html>

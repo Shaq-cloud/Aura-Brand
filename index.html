@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Damn Good Beauty</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="shared-header.css">
+<link rel="stylesheet" href="floating-cart.css">
+
+</head>
+
+<body>
+ <header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo" aria-label="Go to home page">
+     <img src="Logo.png" alt="Logo">
+    </a>
+    <div class="header-controls">
+      <div class="header-menu-panel" id="headerMenuPanel">
+        <nav class="nav-menu" id="primaryNav">
+          <div class="nav-item">
+            <a href="#">Home</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="product.html">Our Products</a>
+          
+          </div>
+
+          <div class="nav-item">
+            <a href="#">Contact Us</a>
+          </div>
+
+          <div class="nav-item">
+            <a href="#">About</a>
+          </div>
+          <div class="nav-item">
+            <a href="order-history.html">History</a>
+          </div>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="user-menu" data-user-menu>
+          <a href="Login.html" class="icon-btn user-icon-btn user-menu-trigger" aria-label="Open login" aria-expanded="false" data-user-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20 21a8 8 0 0 0-16 0"/>
+              <circle cx="12" cy="8" r="4"/>
+            </svg>
+          </a>
+          <div class="user-dropdown" aria-label="Account options">
+            <div class="user-dropdown-copy">
+              <span class="user-dropdown-label">Account</span>
+              <p class="user-dropdown-name" data-user-name-display>Guest account</p>
+              <p class="user-dropdown-email" data-user-email>Login or register to save your order details.</p>
+            </div>
+            <div class="user-dropdown-links" data-user-dropdown-links></div>
+          </div>
+        </div>
+        <a href="cart.html" class="icon-btn cart-icon-btn" aria-label="Open cart" data-cart-link>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 5h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H7"/>
+            <circle cx="10" cy="19" r="1.5"/>
+            <circle cx="17" cy="19" r="1.5"/>
+          </svg>
+          <span class="cart-badge" data-cart-count aria-live="polite">0</span>
+        </a>
+      </div>
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-expanded="false"
+        aria-controls="headerMenuPanel"
+        aria-label="Open navigation menu"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+</div>
+</header>
+
+<section class="hero" aria-label="Featured collection slideshow">
+  <div class="hero-carousel" data-hero-carousel>
+    <div class="hero-track">
+      <article class="hero-slide is-active" data-hero-slide>
+        <img src="New 2.jpg" alt="Vintage collection showcase">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-eyebrow"><span data-user-name> User,</span></p>
+          <h1>Welcome to <span>The Aura Brand.</span></h1>
+          <p class="hero-text">Crafted for bold self-expression, The Aura Brand brings statement style, confidence, and presence to every look.</p>
+          <a href="product.html" class="hero-cta">Shop The Aura Brand</a>
+        </div>
+      </article>
+
+      <article class="hero-slide" data-hero-slide>
+        <img src="New 1.jpg" alt="Curated vintage fashion display">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Brand Energy</p>
+          <h2>Wear the look. <span>Own the aura.</span></h2>
+          <p class="hero-text">Discover pieces designed to help you stand out, feel elevated, and carry The Aura Brand with confidence.</p>
+          <a href="product.html" class="hero-cta">Explore the collection</a>
+        </div>
+      </article>
+
+      <article class="hero-slide" data-hero-slide>
+        <img src="New 3.jpg" alt="Vintage lifestyle collection on display">
+        <div class="hero-overlay" aria-hidden="true"></div>
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Signature Style</p>
+          <h2>Made to be seen. <span>Built to be remembered.</span></h2>
+          <p class="hero-text">Step into styles that reflect your identity and let The Aura Brand become part of your everyday statement.</p>
+          <a href="product.html" class="hero-cta">See what is new</a>
+        </div>
+      </article>
+    </div>
+    <div class="hero-dots" aria-label="Hero slide navigation">
+      <button class="hero-dot is-active" type="button" aria-label="Go to slide 1" aria-pressed="true" data-hero-dot="0"></button>
+      <button class="hero-dot" type="button" aria-label="Go to slide 2" aria-pressed="false" data-hero-dot="1"></button>
+      <button class="hero-dot" type="button" aria-label="Go to slide 3" aria-pressed="false" data-hero-dot="2"></button>
+    </div>
+  </div>
+</section>
+
+<section class="products">
+  <div class="products-header">
+    <h2>LATEST COLLECTION</h2>
+  </div>
+  <div class="product-grid"></div>
+  <a class="view-btn" href="product.html">
+  <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+       viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M4 5h14v14H4z"/>
+    <path d="M18 7h2v10a2 2 0 0 1-2 2H6"/>
+    <line x1="7" y1="9" x2="15" y2="9"/>
+    <line x1="7" y1="13" x2="15" y2="13"/>
+    <line x1="7" y1="17" x2="11" y2="17"/>
+  </svg>
+  View all
+</a>
+</section>
+
+<section class="image-columns">
+  <div class="image-column">
+    <img src="Male 1.jpg" alt="Featured vintage collection" class="image-primary">
+    <img src="Male 2.jpg" alt="Featured vintage collection" class="image-secondary">
+    <div class="image-column-content">
+      <h3 style="width: 210px;">Men's Wear</h3>
+      <p>Timeless style for the modern man</p>
+      <a href="product.html?category=Men%27s%20Wear" class="image-shop-btn">Shop Now</a>
+    </div>
+  </div>
+  <div class="image-column">
+    <img src="Female 1.jpg" alt="Featured fashion accessories" class="image-primary">
+    <img src="Female 2.jpg" alt="Featured vintage collection" class="image-secondary">
+    <div class="image-column-content">
+      <h3>Women's Wear</h3>
+      <p>Style that speaks without words</p>
+      <a href="product.html?category=Women%27s%20Wear" class="image-shop-btn">Shop Now</a>
+    </div>
+  </div>
+</section>
+
+<section class="image-marquee-section" aria-label="Featured image marquee">
+  <div class="image-marquee">
+    <div class="image-marquee-track">
+      <div class="image-marquee-group">
+        <div class="image-marquee-item image-marquee-item-square">
+          <img src="Marquee1.jpg" alt="Featured vintage style showcase">
+        </div>
+        <div class="image-marquee-item">
+          <img src="Marquee2.jpg" alt="Featured vintage collection detail">
+        </div>
+      </div>
+      <div class="image-marquee-group" aria-hidden="true">
+        <div class="image-marquee-item image-marquee-item-square" aria-hidden="true">
+          <img src="Marquee1.jpg" alt="">
+        </div>
+        <div class="image-marquee-item">
+          <img src="Marquee2.jpg" alt="">
+        </div>
+      </div>
+      <div class="image-marquee-group" aria-hidden="true">
+        <div class="image-marquee-item image-marquee-item-square" aria-hidden="true">
+          <img src="Marquee1.jpg" alt="">
+        </div>
+        <div class="image-marquee-item">
+          <img src="Marquee2.jpg" alt="">
+        </div>
+      </div>
+      <div class="image-marquee-group" aria-hidden="true">
+        <div class="image-marquee-item image-marquee-item-square" aria-hidden="true">
+          <img src="Marquee1.jpg" alt="">
+        </div>
+        <div class="image-marquee-item">
+          <img src="Marquee2.jpg" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="follow-section" aria-label="Follow us on Instagram">
+  <img src="Follow.jpg" alt="Follow TheMikhsVintage on Instagram">
+  <div class="follow-content">
+    <p class="follow-kicker">Join Our Community</p>
+    <h2>Follow us on Instagram.</h2>
+    <p>Tag us in your pictures when you wear our brand. We love seeing your style come to life.</p>
+    <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" class="follow-link">Follow on IG</a>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="Logo.png" alt="TheMikhsVintage logo">
+    </div>
+    <div class="footer-brand">
+      <span class="footer-brand-name">THE AURA BRAND</span>
+      <span class="footer-brand-note">Crafted for the Bold. Wear your Brand</span>
+    </div>
+    
+  </div>
+
+  <div class="footer-main">
+    <div class="footer-column">
+      <h3>Customer Service</h3>
+      <a href="#">Contact us</a>
+      <a href="#">FAQs</a>
+      <a href="#">Orders and delivery</a>
+      <a href="#">Returns and refunds</a>
+      <a href="#">Shipping and returns</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>About TheMikhsVintage</h3>
+      <a href="#">About us</a>
+      <a href="#">Partner boutiques</a>
+      <a href="#">Careers</a>
+      <a href="#">Our app</a>
+      <a href="#">Sitemap</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Community</h3>
+      <a href="#">New arrivals</a>
+      <a href="#">Refer a friend</a>
+      <a href="#">Membership</a>
+      <a href="#">Student discount</a>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-legal-links">
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms and conditions</a>
+      <a href="#">Accessibility</a>
+    </div>
+    <p class="footer-copy">Copyright 2026 TheMikhsVintage. All rights reserved.</p>
+  </div>
+</footer>
+
+<script type="module" src="auth-session.js"></script>
+<script type="module" src="cart-sync.js"></script>
+<script type="module" src="home-products.js"></script>
+<script src="cart-utils.js"></script>
+<script src="header-menu.js"></script>
+<script src="floating-cart.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
+

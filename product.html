@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop - Products</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="product.css">
+  <link rel="stylesheet" href="shared-header.css">
+  <link rel="stylesheet" href="floating-cart.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="nav-container">
+    <a href="index.html" class="logo" aria-label="Go to home page">
+      <img src="Logo.png" alt="Logo">
+    </a>
+    <div class="header-controls">
+      <div class="header-menu-panel" id="headerMenuPanel">
+        <nav class="nav-menu" id="primaryNav">
+          <div class="nav-item">
+            <a href="index.html">Home</a>
+          </div>
+          <div class="nav-item">
+            <a href="product.html">Our Products</a>
+          </div>
+          <div class="nav-item">
+            <a href="#">Contact Us</a>
+          </div>
+          <div class="nav-item">
+            <a href="#">About</a>
+          </div>
+          <div class="nav-item">
+            <a href="order-history.html">History</a>
+          </div>
+        </nav>
+      </div>
+      <div class="header-actions">
+        <div class="user-menu" data-user-menu>
+          <a href="Login.html" class="icon-btn user-icon-btn user-menu-trigger" aria-label="Open login" aria-expanded="false" data-user-link>
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M20 21a8 8 0 0 0-16 0"/>
+              <circle cx="12" cy="8" r="4"/>
+            </svg>
+          </a>
+          <div class="user-dropdown" aria-label="Account options">
+            <div class="user-dropdown-copy">
+              <span class="user-dropdown-label">Account</span>
+              <p class="user-dropdown-name" data-user-name-display>Guest account</p>
+              <p class="user-dropdown-email" data-user-email>Login or register to save your order details.</p>
+            </div>
+            <div class="user-dropdown-links" data-user-dropdown-links></div>
+          </div>
+        </div>
+        <a href="cart.html" class="icon-btn cart-icon-btn" aria-label="Open cart" data-cart-link>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M3 5h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H7"/>
+            <circle cx="10" cy="19" r="1.5"/>
+            <circle cx="17" cy="19" r="1.5"/>
+          </svg>
+          <span class="cart-badge" data-cart-count aria-live="polite">0</span>
+        </a>
+      </div>
+      <button
+        type="button"
+        class="menu-toggle"
+        id="menuToggle"
+        aria-expanded="false"
+        aria-controls="headerMenuPanel"
+        aria-label="Open navigation menu"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M4 12h16M4 17h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="sidebar">
+    <h3>Categories</h3>
+    <ul>
+      <li class="is-active" data-filter="all">All</li>
+      <li data-filter="Glasses">Glasses</li>
+      <li data-filter="Slippers">Slippers</li>
+      <li data-filter="Walking Sticks">Walking Sticks</li>
+      <li data-filter="Hats">Hats</li>
+      <li data-filter="Accessories">Accessories</li>
+      
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="top-bar">
+      <h1 id="products-title">All (10)</h1>
+      <div class="controls">
+        <label class="sort-control" for="sort-select">
+          <span>Sort By</span>
+          <select id="sort-select" aria-label="Sort products">
+            <option value="default">Default</option>
+            <option value="name-asc">Name A-Z</option>
+            <option value="price-asc">Price Low to High</option>
+            <option value="price-desc">Price High to Low</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <p class="product-status" id="productStatus" data-state="info">Loading live products...</p>
+    <div class="products" id="productsGrid"></div>
+  </div>
+</div>
+
+<div class="product-modal" id="product-modal" aria-hidden="true">
+  <div class="product-modal-backdrop" data-close-modal></div>
+  <div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
+    <button class="product-modal-close" type="button" aria-label="Close product details" data-close-modal>&times;</button>
+    <div class="product-modal-media">
+      <img id="modal-product-image" src="" alt="">
+    </div>
+    <div class="product-modal-content">
+      <p class="product-modal-kicker" id="modal-product-category"></p>
+      <h2 id="modal-product-title"></h2>
+      <p class="product-modal-price" id="modal-product-price"></p>
+      <p class="product-modal-description" id="modal-product-description"></p>
+      <button class="product-modal-btn" type="button" id="modal-add-to-cart-btn">Add to Cart</button>
+      <section class="product-admin-panel" id="productAdminPanel" hidden>
+        <div class="product-admin-head">
+          <h3>Admin Controls</h3>
+          <p>Update or remove this product directly from the storefront.</p>
+        </div>
+        <p class="product-admin-message" id="productAdminMessage" data-state="info"></p>
+        <form class="product-admin-form" id="productAdminForm">
+          <label>
+            <span>Name</span>
+            <input type="text" id="adminProductName" maxlength="120" required>
+          </label>
+          <label>
+            <span>Category</span>
+            <input type="text" id="adminProductCategory" maxlength="60" required>
+          </label>
+          <label>
+            <span>Price</span>
+            <input type="number" id="adminProductPrice" min="0.01" step="0.01" required>
+          </label>
+          <label>
+            <span>Image</span>
+            <input type="text" id="adminProductImage" maxlength="400" placeholder="https://... or Eg.jpg">
+          </label>
+          <label class="admin-field-full">
+            <span>Description</span>
+            <textarea id="adminProductDescription" maxlength="600" rows="4"></textarea>
+          </label>
+          <label class="admin-checkbox admin-field-full">
+            <input type="checkbox" id="adminProductFeatured">
+            <span>Featured product</span>
+          </label>
+          <div class="product-admin-actions admin-field-full">
+            <button class="product-modal-btn product-admin-save" type="submit" id="adminSaveProductButton">Save Changes</button>
+            <button class="product-modal-btn product-admin-delete" type="button" id="adminDeleteProductButton">Delete Product</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="Logo.png" alt="TheMikhsVintage logo">
+    </div>
+    <div class="footer-brand">
+      <span class="footer-brand-name">TheMikhsVintage</span>
+      <span class="footer-brand-note">Curated vintage and fashion pieces with character</span>
+    </div>
+    <div class="footer-search">
+      <span class="footer-search-icon">&#8981;</span>
+      <span>What are you looking for?</span>
+    </div>
+  </div>
+
+  <div class="footer-main">
+    <div class="footer-column">
+      <h3>Customer Service</h3>
+      <a href="#">Contact us</a>
+      <a href="#">FAQs</a>
+      <a href="#">Orders and delivery</a>
+      <a href="#">Returns and refunds</a>
+      <a href="#">Shipping and returns</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>About TheMikhsVintage</h3>
+      <a href="#">About us</a>
+      <a href="#">Partner boutiques</a>
+      <a href="#">Careers</a>
+      <a href="#">Our app</a>
+      <a href="#">Sitemap</a>
+    </div>
+
+    <div class="footer-column">
+      <h3>Community</h3>
+      <a href="#">New arrivals</a>
+      <a href="#">Refer a friend</a>
+      <a href="#">Membership</a>
+      <a href="#">Student discount</a>
+      <div class="footer-socials">
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+        <a href="#">Facebook</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="footer-legal-links">
+      <a href="#">Privacy policy</a>
+      <a href="#">Terms and conditions</a>
+      <a href="#">Accessibility</a>
+    </div>
+    <p class="footer-copy">Copyright 2026 TheMikhsVintage. All rights reserved.</p>
+  </div>
+</footer>
+
+<script type="module" src="auth-session.js"></script>
+<script type="module" src="cart-sync.js"></script>
+<script src="cart-utils.js"></script>
+<script src="header-menu.js"></script>
+<script src="floating-cart.js"></script>
+<script type="module" src="product.js"></script>
+</body>
+</html>
