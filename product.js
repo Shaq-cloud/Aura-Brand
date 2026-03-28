@@ -42,26 +42,29 @@ const formatPrice = (amount) => {
 const getCategoryKey = (value) => String(value || "").trim().toLowerCase();
 
 const getRequestedCategory = () => new URLSearchParams(window.location.search).get("category") || "";
-const parseProductImages = (product = {}) => {
-  const sourceValues = Array.isArray(product.images) && product.images.length
-    ? product.images
-    : String(product.image ?? "").split(",");
+const resolveProductImage = (product = {}) => {
+  if (typeof product.image === "string" && product.image.trim()) {
+    return product.image.trim();
+  }
 
-  return sourceValues
-    .map((entry) => String(entry ?? "").trim())
-    .filter(Boolean);
+  if (Array.isArray(product.images) && product.images.length) {
+    const firstImage = String(product.images[0] ?? "").trim();
+
+    if (firstImage) {
+      return firstImage;
+    }
+  }
+
+  return DEFAULT_IMAGE;
 };
 
 const normalizeProduct = (product = {}) => {
-  const images = parseProductImages(product);
-
   return {
     id: String(product.id ?? ""),
     name: String(product.name ?? "Product").trim() || "Product",
     category: String(product.category ?? "General").trim() || "General",
     price: Number(product.price) || 0,
-    image: images[0] || DEFAULT_IMAGE,
-    images: images.length ? images : [DEFAULT_IMAGE],
+    image: resolveProductImage(product),
     alt: String(product.alt ?? product.name ?? "Product image").trim() || "Product image"
   };
 };
@@ -163,6 +166,9 @@ const createProductCard = (product) => {
   const image = document.createElement("img");
   image.src = product.image || DEFAULT_IMAGE;
   image.alt = product.alt || product.name;
+  image.addEventListener("error", () => {
+    image.src = DEFAULT_IMAGE;
+  });
 
   const price = document.createElement("p");
   price.className = "price";

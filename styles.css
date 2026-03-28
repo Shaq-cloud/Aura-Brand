@@ -1066,7 +1066,7 @@ NEXT SECTION 1
 @media (max-width: 640px){
   .hero{
     min-height:74vh;
-    padding-top: 60px
+    padding-top: 25px
   }
 
   .hero-carousel{

@@ -356,3 +356,37 @@
     width:min(260px, calc(100vw - 24px));
   }
 }
+
+@media (max-width: 640px){
+  .site-header .nav-container{
+    display:grid;
+    grid-template-columns:auto 1fr auto auto;
+    align-items:center;
+    gap:10px;
+    padding:0 12px;
+    min-height:62px;
+    flex-wrap:unset;
+  }
+
+  .site-header .header-actions{
+    order:2;
+    justify-self:end;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  .site-header .menu-toggle{
+    order:3;
+    justify-self:end;
+  }
+
+  .site-header .header-menu-panel{
+    left:12px;
+    right:12px;
+  }
+
+  .site-header .nav-menu{
+    width:auto;
+  }
+}
