@@ -1,13 +1,13 @@
 :root{
   --primary:#111111;
   --text:#222222;
-  --muted:#6a5749;
+  --muted:#666666;
   --light:#ffffff;
-  --surface:#fbf6ef;
-  --surface-strong:#f1e5d4;
-  --accent:#23160d;
+  --surface:#f7f7f7;
+  --surface-strong:#efefef;
+  --accent:#111111;
   --danger:#8b1e1e;
-  --border:rgba(35, 22, 13, 0.12);
+  --border:#eaeaea;
   --transition:0.3s ease;
 }
 
@@ -20,9 +20,7 @@
 body{
   font-family:'Poppins', sans-serif;
   color:var(--text);
-  background:
-    radial-gradient(circle at top, rgba(245, 197, 24, 0.12), transparent 28%),
-    linear-gradient(180deg, #f7f1e9 0%, #ffffff 22%);
+  background:#ffffff;
 }
 
 .site-header{
@@ -179,10 +177,10 @@ body{
 
 .cart-panel,
 .summary-panel{
-  background:rgba(255,255,255,0.86);
+  background:#ffffff;
   border:1px solid var(--border);
   border-radius:30px;
-  box-shadow:0 25px 60px rgba(36, 22, 12, 0.08);
+  box-shadow:0 16px 40px rgba(0, 0, 0, 0.05);
 }
 
 .cart-panel{
@@ -222,8 +220,8 @@ body{
 
 .ghost-btn{
   padding:10px 16px;
-  background:#f3ede4;
-  color:var(--accent);
+  background:#f3f3f3;
+  color:var(--primary);
 }
 
 .primary-btn{
@@ -233,7 +231,7 @@ body{
   padding:16px 22px;
   text-decoration:none;
   background:var(--accent);
-  color:#fff8ef;
+  color:#ffffff;
   font-weight:700;
 }
 
@@ -262,7 +260,7 @@ body{
   padding:10px;
   align-items:center;
   border-radius:28px;
-  background:linear-gradient(180deg, #fbf7f1 0%, #f6f0e7 100%);
+  background:#ffffff;
 }
 
 .cart-item-media{
@@ -270,7 +268,7 @@ body{
   height:112px;
   border-radius:24px;
   overflow:hidden;
-  background:#ebe5dd;
+  background:#f2f2f2;
 }
 
 .cart-item-media img{
@@ -295,7 +293,7 @@ body{
 .cart-item-price{
   margin:5px 0 0;
   font-weight:700;
-  color:#17120d;
+  color:var(--primary);
 }
 
 .cart-item-actions{
@@ -321,7 +319,7 @@ body{
   width:34px;
   height:34px;
   background:var(--surface-strong);
-  color:var(--accent);
+  color:var(--primary);
   font-size:18px;
 }
 
@@ -352,7 +350,7 @@ body{
 }
 
 .summary-row strong{
-  color:var(--text);
+  color:var(--primary);
 }
 
 .total-row{

@@ -201,6 +201,12 @@ color:#000000;
 width:100%;
 }
 
+.product-item{
+text-decoration:none;
+color:inherit;
+display:block;
+}
+
 /* DROPDOWN MENU */
 
 .dropdown{
@@ -992,7 +998,7 @@ NEXT SECTION 1
 
   .hero{
     min-height:82vh;
-    padding-top: 60px
+    padding-top: 30px
   }
 
   .hero-carousel{

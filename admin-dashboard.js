@@ -408,14 +408,23 @@ const setImagePreview = (imageSource = "") => {
     return;
   }
 
-  if (!imageSource) {
+  const previewSource = Array.isArray(imageSource) ? imageSource[0] : parseImageReferences(imageSource)[0];
+
+  if (!previewSource) {
     productImagePreviewCard.hidden = true;
     productImagePreview.removeAttribute("src");
     return;
   }
 
   productImagePreviewCard.hidden = false;
-  productImagePreview.src = imageSource;
+  productImagePreview.src = previewSource;
+};
+
+const parseImageReferences = (imageValue = "") => {
+  return String(imageValue ?? "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
 };
 
 const getProductFormValues = () => ({
@@ -429,7 +438,9 @@ const getProductFormValues = () => ({
 });
 
 const isValidImageReference = (imageValue = "") => {
-  if (!imageValue) {
+  const references = parseImageReferences(imageValue);
+
+  if (!references.length) {
     return true;
   }
 
@@ -437,7 +448,7 @@ const isValidImageReference = (imageValue = "") => {
   const localPattern = /^[\w./-]+\.(png|jpe?g|webp|gif|avif|svg)$/i;
   const dataUrlPattern = /^data:image\/[a-zA-Z0-9.+-]+;base64,/i;
 
-  return httpPattern.test(imageValue) || localPattern.test(imageValue) || dataUrlPattern.test(imageValue);
+  return references.every((reference) => httpPattern.test(reference) || localPattern.test(reference) || dataUrlPattern.test(reference));
 };
 
 const validateProductData = (productData) => {
@@ -487,9 +498,9 @@ const populateProductForm = (product) => {
   productNameInput.value = product.name ?? "";
   productCategoryInput.value = product.category ?? "";
   productPriceInput.value = String(product.price ?? "");
-  productImageInput.value = product.image ?? "";
+  productImageInput.value = Array.isArray(product.images) && product.images.length ? product.images.join(", ") : (product.image ?? "");
   uploadedImageDataUrl = "";
-  setImagePreview(product.image ?? "");
+  setImagePreview(Array.isArray(product.images) && product.images.length ? product.images[0] : (product.image ?? ""));
   productDescriptionInput.value = product.description ?? "";
   productFeaturedInput.checked = Boolean(product.featured);
   saveProductButton.textContent = "Update Product";

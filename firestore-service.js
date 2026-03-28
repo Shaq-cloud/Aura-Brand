@@ -22,6 +22,13 @@ const PRODUCTS_COLLECTION = "products";
 const ORDERS_COLLECTION = "orders";
 
 const normalizeEmail = (email) => String(email ?? "").trim().toLowerCase();
+const parseProductImages = (value = []) => {
+  const sourceValues = Array.isArray(value) ? value : String(value ?? "").split(",");
+
+  return sourceValues
+    .map((entry) => String(entry ?? "").trim())
+    .filter(Boolean);
+};
 
 const buildUserProfile = (user, existingProfile = null, options = {}) => {
   const createdAt = existingProfile?.createdAt ?? serverTimestamp();
@@ -212,11 +219,14 @@ const createOrder = async ({
 };
 
 const sanitizeProduct = (product = {}) => {
+  const images = parseProductImages(product.images?.length ? product.images : product.image);
+
   return {
     name: String(product.name ?? "").trim(),
     category: String(product.category ?? "").trim(),
     description: String(product.description ?? "").trim(),
-    image: String(product.image ?? "").trim(),
+    image: images[0] ?? "",
+    images,
     alt: String(product.alt ?? product.name ?? "").trim(),
     price: Number(product.price) || 0,
     featured: Boolean(product.featured)
@@ -265,6 +275,23 @@ const deleteProduct = async (productId) => {
   }
 
   await deleteDoc(doc(db, PRODUCTS_COLLECTION, productId));
+};
+
+const getProduct = async (productId) => {
+  if (!productId) {
+    return null;
+  }
+
+  const productSnapshot = await getDoc(doc(db, PRODUCTS_COLLECTION, productId));
+
+  if (!productSnapshot.exists()) {
+    return null;
+  }
+
+  return {
+    id: productSnapshot.id,
+    ...productSnapshot.data()
+  };
 };
 
 const listProducts = async () => {
@@ -382,6 +409,7 @@ export {
   createOrder,
   deleteProduct,
   getCart,
+  getProduct,
   getCartSummary,
   getUserProfile,
   getUserProfileByEmail,

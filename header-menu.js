@@ -1,6 +1,7 @@
 (function () {
   const LOGIN_STORAGE_KEY = "token";
   const LOGIN_USER_STORAGE_KEY = "firebase-user";
+  const LOGOUT_TRIGGER_SELECTOR = "[data-user-logout]";
   const userLink = document.querySelector("[data-user-link]");
   const siteHeader = document.querySelector(".site-header");
   const menuToggle = document.getElementById("menuToggle");
@@ -34,6 +35,24 @@
     }
 
     return email.split("@")[0] || "Guest";
+  };
+
+  const handleLogout = async () => {
+    window.localStorage.removeItem(LOGIN_STORAGE_KEY);
+    window.localStorage.removeItem(LOGIN_USER_STORAGE_KEY);
+
+    try {
+      const [{ signOut }, { auth }] = await Promise.all([
+        import("https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js"),
+        import("./firebase-config.js")
+      ]);
+
+      await signOut(auth);
+    } catch (error) {
+      // Fall through to redirect even if Firebase sign-out is temporarily unavailable.
+    }
+
+    window.location.replace("Login.html");
   };
 
   const closeMenu = () => {
@@ -81,8 +100,7 @@
 
     if (isLoggedIn()) {
       userDropdownLinks.innerHTML = [
-        '<a href="order-history.html" class="user-dropdown-link"><span>Order history</span><span aria-hidden="true">+</span></a>',
-        '<a href="checkout.html" class="user-dropdown-link"><span>Continue checkout</span><span aria-hidden="true">+</span></a>'
+        '<button type="button" class="user-dropdown-link" data-user-logout><span>Log out</span><span aria-hidden="true">+</span></button>'
       ].join("");
       return;
     }
@@ -158,6 +176,12 @@
 
     if (target.closest("#headerMenuPanel a")) {
       closeMenu();
+    }
+
+    if (target.closest(LOGOUT_TRIGGER_SELECTOR)) {
+      closeUserDropdown();
+      handleLogout();
+      return;
     }
 
     if (userMenu && !target.closest("[data-user-menu]")) {

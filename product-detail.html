@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Shop - Products</title>
+  <title>Product Details</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="product.css">
   <link rel="stylesheet" href="shared-header.css">
   <link rel="stylesheet" href="floating-cart.css">
+  <link rel="stylesheet" href="product-detail.css">
 </head>
 <body>
 
@@ -78,97 +79,95 @@
   </div>
 </header>
 
-<div class="container">
-  <div class="sidebar">
-    <h3>Categories</h3>
-    <ul>
-      <li class="is-active" data-filter="all">All</li>
-      
-    </ul>
-  </div>
+<main class="product-detail-page" aria-labelledby="productDetailTitle">
+  <div class="product-detail-shell">
+    <a href="product.html" class="product-detail-back" id="productDetailBackLink">Back to products</a>
 
-  <div class="main">
-    <div class="top-bar">
-      <h1 id="products-title">All (10)</h1>
-      <div class="controls">
-        <label class="sort-control" for="sort-select">
-          <span>Sort By</span>
-          <select id="sort-select" aria-label="Sort products">
-            <option value="default">Default</option>
-            <option value="name-asc">Name A-Z</option>
-            <option value="price-asc">Price Low to High</option>
-            <option value="price-desc">Price High to Low</option>
-          </select>
-        </label>
+    <p class="product-detail-status" id="productDetailStatus" data-state="info">Loading product...</p>
+
+    <div class="product-detail-layout" id="productDetailLayout" hidden>
+      <div class="product-detail-gallery">
+        <div class="product-detail-media">
+          <img id="productDetailImage" src="" alt="">
+        </div>
+      </div>
+
+      <div class="product-detail-content">
+        <p class="product-detail-kicker" id="productDetailCategory"></p>
+        <h1 id="productDetailTitle"></h1>
+        <p class="product-detail-subtitle">Product details</p>
+        <p class="product-detail-price" id="productDetailPrice"></p>
+
+        <section class="product-detail-actions" aria-label="Product purchase options">
+          <div class="product-detail-size-head">
+            <h2>Select Size</h2>
+            <span>Size guide</span>
+          </div>
+          <div class="product-detail-size-grid" id="productDetailSizes">
+            <button type="button" class="product-size-chip">XS</button>
+            <button type="button" class="product-size-chip">S</button>
+            <button type="button" class="product-size-chip">M</button>
+            <button type="button" class="product-size-chip">L</button>
+            <button type="button" class="product-size-chip">XL</button>
+          </div>
+          <button class="product-detail-btn product-detail-btn-primary" type="button" id="productDetailAddToCartButton">Add to Cart</button>
+          <button class="product-detail-btn product-detail-btn-secondary" type="button">Favourite</button>
+        </section>
+
+        <div class="product-detail-note">
+          <strong>About this product</strong>
+          <p id="productDetailDescription"></p>
+        </div>
+
+        <section class="product-admin-panel" id="productAdminPanel" hidden>
+          <div class="product-admin-head">
+            <h3>Admin Controls</h3>
+            <p>Update or remove this product directly from the storefront.</p>
+          </div>
+          <p class="product-admin-message" id="productAdminMessage" data-state="info"></p>
+          <form class="product-admin-form" id="productAdminForm">
+            <label>
+              <span>Name</span>
+              <input type="text" id="adminProductName" maxlength="120" required>
+            </label>
+            <label>
+              <span>Category</span>
+              <input type="text" id="adminProductCategory" maxlength="60" required>
+            </label>
+            <label>
+              <span>Price</span>
+              <input type="number" id="adminProductPrice" min="0.01" step="0.01" required>
+            </label>
+            <label>
+              <span>Image</span>
+              <input type="text" id="adminProductImage" maxlength="400" placeholder="https://... or Eg.jpg">
+            </label>
+            <label class="admin-field-full">
+              <span>Description</span>
+              <textarea id="adminProductDescription" maxlength="600" rows="4"></textarea>
+            </label>
+            <label class="admin-checkbox admin-field-full">
+              <input type="checkbox" id="adminProductFeatured">
+              <span>Featured product</span>
+            </label>
+            <div class="product-admin-actions admin-field-full">
+              <button class="product-detail-btn product-admin-save" type="submit">Save Changes</button>
+              <button class="product-detail-btn product-admin-delete" type="button" id="adminDeleteProductButton">Delete Product</button>
+            </div>
+          </form>
+        </section>
       </div>
     </div>
-
-    <p class="product-status" id="productStatus" data-state="info">Loading live products...</p>
-    <div class="products" id="productsGrid"></div>
   </div>
-</div>
-
-<div class="product-modal" id="product-modal" aria-hidden="true">
-  <div class="product-modal-backdrop" data-close-modal></div>
-  <div class="product-modal-panel" role="dialog" aria-modal="true" aria-labelledby="modal-product-title">
-    <button class="product-modal-close" type="button" aria-label="Close product details" data-close-modal>&times;</button>
-    <div class="product-modal-media">
-      <img id="modal-product-image" src="" alt="">
-    </div>
-    <div class="product-modal-content">
-      <p class="product-modal-kicker" id="modal-product-category"></p>
-      <h2 id="modal-product-title"></h2>
-      <p class="product-modal-price" id="modal-product-price"></p>
-      <p class="product-modal-description" id="modal-product-description"></p>
-      <button class="product-modal-btn" type="button" id="modal-add-to-cart-btn">Add to Cart</button>
-      <section class="product-admin-panel" id="productAdminPanel" hidden>
-        <div class="product-admin-head">
-          <h3>Admin Controls</h3>
-          <p>Update or remove this product directly from the storefront.</p>
-        </div>
-        <p class="product-admin-message" id="productAdminMessage" data-state="info"></p>
-        <form class="product-admin-form" id="productAdminForm">
-          <label>
-            <span>Name</span>
-            <input type="text" id="adminProductName" maxlength="120" required>
-          </label>
-          <label>
-            <span>Category</span>
-            <input type="text" id="adminProductCategory" maxlength="60" required>
-          </label>
-          <label>
-            <span>Price</span>
-            <input type="number" id="adminProductPrice" min="0.01" step="0.01" required>
-          </label>
-          <label>
-            <span>Image</span>
-            <input type="text" id="adminProductImage" maxlength="400" placeholder="https://... or Eg.jpg">
-          </label>
-          <label class="admin-field-full">
-            <span>Description</span>
-            <textarea id="adminProductDescription" maxlength="600" rows="4"></textarea>
-          </label>
-          <label class="admin-checkbox admin-field-full">
-            <input type="checkbox" id="adminProductFeatured">
-            <span>Featured product</span>
-          </label>
-          <div class="product-admin-actions admin-field-full">
-            <button class="product-modal-btn product-admin-save" type="submit" id="adminSaveProductButton">Save Changes</button>
-            <button class="product-modal-btn product-admin-delete" type="button" id="adminDeleteProductButton">Delete Product</button>
-          </div>
-        </form>
-      </section>
-    </div>
-  </div>
-</div>
+</main>
 
 <footer class="site-footer">
   <div class="footer-top">
     <div class="footer-logo">
-      <img src="Logo.png" alt="The Aura Brand logo">
+      <img src="Logo.png" alt="TheMikhsVintage logo">
     </div>
     <div class="footer-brand">
-      <span class="footer-brand-name">The Aura Brand</span>
+      <span class="footer-brand-name">The AURA Brand</span>
       <span class="footer-brand-note">Curated vintage and fashion pieces with character</span>
     </div>
     <div class="footer-search">
@@ -216,7 +215,7 @@
       <a href="#">Terms and conditions</a>
       <a href="#">Accessibility</a>
     </div>
-    <p class="footer-copy">Copyright 2026 The Aura Brand. All rights reserved.</p>
+    <p class="footer-copy">Copyright 2026 TheMikhsVintage. All rights reserved.</p>
   </div>
 </footer>
 
@@ -225,6 +224,6 @@
 <script src="cart-utils.js"></script>
 <script src="header-menu.js"></script>
 <script src="floating-cart.js"></script>
-<script type="module" src="product.js"></script>
+<script type="module" src="product-detail.js"></script>
 </body>
 </html>

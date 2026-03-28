@@ -1,14 +1,11 @@
 :root {
-  --history-bg: #f5f5f5;
-  --panel: #ffffff;
-  --panel-muted: #efefef;
-  --line: #d7d7d7;
-  --line-strong: #b6b6b6;
-  --text: #111111;
-  --text-soft: #5f5f5f;
-  --ash: #8d8d8d;
-  --ash-dark: #4d4d4d;
-  --shadow: 0 22px 48px rgba(17, 17, 17, 0.08);
+  --primary: #111111;
+  --text: #222222;
+  --light: #ffffff;
+  --border: #eaeaea;
+  --section: #f7f7f7;
+  --radius: 14px;
+  --transition: 0.3s ease;
 }
 
 *,
@@ -26,9 +23,7 @@ body {
   min-height: 100vh;
   font-family: "Poppins", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at top left, rgba(141, 141, 141, 0.18), transparent 26%),
-    linear-gradient(180deg, #ffffff 0%, #f5f5f5 36%, #ececec 100%);
+  background: var(--light);
 }
 
 a,
@@ -47,182 +42,297 @@ button {
 }
 
 .login-page {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 44px 24px 72px;
+  width: min(1200px, calc(100% - 32px));
+  margin: 28px auto 48px;
 }
 
 .login-board {
   display: grid;
-  grid-template-columns: minmax(360px, 0.95fr) minmax(360px, 1fr);
-  min-height: 620px;
-  border: 1px solid var(--line);
-  border-radius: 32px;
-  overflow: hidden;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: var(--shadow);
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 24px;
+  align-items: stretch;
 }
 
-.login-panel {
-  padding: 34px 36px 28px;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(241, 241, 241, 0.95) 100%);
+.hero-panel {
+  position: relative;
+  min-height: 720px;
+  border-radius: 28px;
+  overflow: hidden;
+  background: #111111;
+}
+
+.hero-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.1)),
+    url("New 2.jpg") center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: relative;
+  z-index: 1;
+  min-height: 100%;
+  padding: 32px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  color: #ffffff;
 }
 
 .brand-lockup {
   display: inline-flex;
   align-items: center;
-  gap: 16px;
+  gap: 14px;
   width: fit-content;
 }
 
 .brand-mark {
-  width: 82px;
-  height: 82px;
-  border: 1px solid var(--line);
-  border-radius: 24px;
-  background: var(--panel);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
   display: grid;
   place-items: center;
-  box-shadow: 0 10px 24px rgba(17, 17, 17, 0.05);
 }
 
 .brand-mark img {
-  width: 62px;
-  height: 62px;
+  width: 46px;
+  height: 46px;
   object-fit: contain;
 }
 
 .brand-copy {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .brand-copy strong {
   font-family: "Playfair Display", serif;
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  letter-spacing: -0.03em;
 }
 
 .brand-copy small {
-  color: var(--text-soft);
-  font-size: 0.9rem;
-  letter-spacing: 0.08em;
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  opacity: 0.82;
+}
+
+.hero-copy-block {
+  max-width: 460px;
 }
 
 .eyebrow {
   margin: 0 0 12px;
-  color: var(--ash);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
 }
 
-.login-copy {
-  margin-top: 40px;
+.hero-copy-block .eyebrow {
+  color: rgba(255, 255, 255, 0.76);
 }
 
+.hero-copy-block h2,
 .login-copy h1,
-.hero-overlay h2,
 .admin-card h2 {
   margin: 0;
   font-family: "Playfair Display", serif;
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
+}
+
+.hero-copy-block h2 {
+  font-size: clamp(2.4rem, 4vw, 4rem);
+  line-height: 1;
+  max-width: 10ch;
+}
+
+.hero-copy-block p {
+  margin: 16px 0 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.hero-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.metric-card {
+  padding: 16px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+}
+
+.metric-card strong,
+.metric-card span {
+  display: block;
+}
+
+.metric-card strong {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.metric-card span {
+  margin-top: 6px;
+  font-size: 0.86rem;
+  line-height: 1.55;
+}
+
+.login-panel {
+  min-height: 720px;
+  padding: 0;
+}
+
+.login-shell {
+  height: 100%;
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: 28px;
+  background: var(--section);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .login-copy h1 {
-  font-size: clamp(2.5rem, 3.8vw, 4rem);
+  font-size: clamp(2.1rem, 3vw, 3rem);
   line-height: 1.05;
+  color: var(--primary);
 }
 
-.intro,
-.hero-overlay p {
-  margin: 14px 0 0;
-  color: var(--text-soft);
-  font-size: 1rem;
-  line-height: 1.75;
+.login-copy .eyebrow {
+  color: #666666;
+}
+
+.intro {
+  margin: 12px 0 0;
+  font-size: 0.96rem;
+  line-height: 1.7;
+  max-width: 46ch;
 }
 
 .currency-panel,
-.signin-options {
-  margin-top: 30px;
+.login-form {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--light);
 }
 
-.currency-panel h2,
-.signin-options h2 {
-  margin: 0 0 16px;
-  font-size: 1.7rem;
+.section-heading {
+  margin-bottom: 14px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1rem;
   font-weight: 600;
+  color: var(--primary);
+}
+
+.section-heading p {
+  margin: 6px 0 0;
+  font-size: 0.88rem;
+  color: #666666;
+  line-height: 1.6;
 }
 
 .currency-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 10px;
 }
 
 .currency-chip {
-  min-width: 90px;
-  padding: 12px 18px;
-  border: 1px solid var(--line-strong);
+  min-width: 78px;
+  padding: 11px 16px;
+  border: 1px solid var(--border);
   border-radius: 999px;
-  background: var(--panel);
-  color: var(--text);
+  background: var(--light);
+  color: var(--primary);
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  transition: var(--transition);
 }
 
 .currency-chip.is-active,
 .currency-chip:hover {
-  background: var(--text);
-  border-color: var(--text);
-  color: #ffffff;
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--light);
 }
 
-.login-form {
-  margin-top: 28px;
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 .field {
   display: block;
 }
 
-.field + .field {
-  margin-top: 16px;
+.field-full {
+  grid-column: 1 / -1;
 }
 
 .field span {
   display: block;
-  margin-bottom: 10px;
-  color: var(--text-soft);
-  font-size: 0.95rem;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
   font-weight: 500;
+  color: #555555;
+}
+
+.field input {
+  width: 100%;
+  height: 54px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--light);
+  color: var(--primary);
+  outline: none;
+  transition: border-color var(--transition);
+}
+
+.field input:focus {
+  border-color: #999999;
+}
+
+.field input::placeholder {
+  color: #9c9c9c;
 }
 
 .signin-hint {
-  margin: 12px 0 0;
-  color: var(--ash-dark);
-  font-size: 0.92rem;
+  margin: 14px 0 0;
+  font-size: 0.88rem;
   line-height: 1.6;
+  color: #666666;
 }
 
 .auth-message {
   min-height: 24px;
   margin: 10px 0 0;
-  color: var(--text-soft);
-  font-size: 0.92rem;
+  font-size: 0.9rem;
   line-height: 1.6;
+  color: #666666;
 }
 
 .auth-message[data-state="success"] {
-  color: #2e6a48;
+  color: #236446;
 }
 
 .auth-message[data-state="error"] {
@@ -230,55 +340,37 @@ button {
 }
 
 .auth-message-light {
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.76);
 }
 
 .auth-message-light[data-state="success"] {
-  color: #c5f0d2;
+  color: #d3f3de;
 }
 
 .auth-message-light[data-state="error"] {
   color: #ffd0d0;
 }
 
-.field input {
-  width: 100%;
-  height: 58px;
-  border: 1px solid var(--line-strong);
-  border-radius: 16px;
-  background: rgba(255, 255, 255, 0.92);
-  padding: 0 16px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
-}
-
-.field input:focus {
-  border-color: var(--ash);
-  box-shadow: 0 0 0 4px rgba(141, 141, 141, 0.14);
-}
-
 .primary-button {
   width: 100%;
+  height: 56px;
   margin-top: 18px;
-  height: 58px;
-  border-radius: 18px;
-  background: #d7d7d7;
-  color: #ffffff;
-  font-size: 1rem;
-  font-weight: 700;
+  border-radius: 999px;
+  background: #d4d4d4;
+  color: var(--light);
+  font-size: 0.98rem;
+  font-weight: 600;
   cursor: not-allowed;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  transition: var(--transition);
 }
 
 .primary-button.is-active {
-  background: linear-gradient(135deg, var(--text) 0%, var(--ash-dark) 100%);
+  background: var(--primary);
   cursor: pointer;
-  box-shadow: 0 18px 30px rgba(17, 17, 17, 0.14);
 }
 
 .primary-button.is-active:hover {
-  transform: translateY(-1px);
+  background: #000000;
 }
 
 .primary-button.is-busy {
@@ -287,28 +379,37 @@ button {
   pointer-events: none;
 }
 
+.signin-options {
+  margin-top: 18px;
+}
+
 .social-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: 1fr;
 }
 
 .social-button {
-  height: 70px;
-  border-radius: 18px;
-  background: var(--text);
-  color: #ffffff;
-  display: grid;
-  place-items: center;
+  min-height: 62px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: var(--light);
+  border: 1px solid var(--border);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  gap: 14px;
   cursor: pointer;
-  transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  transition: var(--transition);
+}
+
+.social-button:hover {
+  border-color: #cfcfcf;
+  background: #fafafa;
 }
 
 .social-button:disabled {
-  background: #cfcfcf;
-  color: rgba(255, 255, 255, 0.82);
+  opacity: 0.56;
   cursor: not-allowed;
-  box-shadow: none;
 }
 
 .social-button.is-busy {
@@ -317,105 +418,67 @@ button {
   pointer-events: none;
 }
 
-.social-button:hover {
-  transform: translateY(-1px);
-  background: var(--ash-dark);
-  box-shadow: 0 14px 28px rgba(17, 17, 17, 0.12);
-}
-
-.social-button:disabled:hover {
-  transform: none;
-  background: #cfcfcf;
-  box-shadow: none;
+.social-icon {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
 }
 
 .social-button svg {
-  width: 28px;
-  height: 28px;
-}
-
-.admin-link {
-  margin-top: auto;
-  padding-top: 34px;
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  width: fit-content;
-  color: var(--text);
-}
-
-.admin-link-copy {
-  font-size: 0.95rem;
-  color: var(--text-soft);
-}
-
-.admin-link-arrow {
-  font-size: 1.45rem;
-  line-height: 1;
-}
-
-.admin-link-icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: var(--text);
-  color: #ffffff;
-  display: grid;
-  place-items: center;
-  box-shadow: 0 14px 28px rgba(17, 17, 17, 0.12);
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-
-.admin-link:hover .admin-link-icon {
-  transform: translateY(-2px);
-  background: var(--ash-dark);
-}
-
-.admin-link-icon svg {
   width: 22px;
   height: 22px;
 }
 
-.hero-panel {
-  position: relative;
-  min-height: 100%;
-  background:
-    linear-gradient(180deg, rgba(17, 17, 17, 0.35), rgba(17, 17, 17, 0.76)),
-    url("hero 1.jpg") center/cover no-repeat;
-  color: #ffffff;
+.social-copy {
   display: flex;
-  align-items: flex-end;
+  flex-direction: column;
+  gap: 2px;
+  text-align: left;
 }
 
-.hero-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at 25% 20%, rgba(255, 255, 255, 0.12), transparent 22%),
-    linear-gradient(135deg, rgba(17, 17, 17, 0.16), rgba(17, 17, 17, 0.6));
+.social-copy strong {
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
-.hero-overlay {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  padding: 48px;
+.social-copy small {
+  font-size: 0.82rem;
+  color: #666666;
 }
 
-.hero-overlay .eyebrow,
-.hero-overlay p {
-  color: rgba(255, 255, 255, 0.76);
+.admin-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  color: var(--primary);
 }
 
-.hero-overlay h2 {
-  font-size: clamp(2.4rem, 4vw, 4.2rem);
-  line-height: 1.02;
-  max-width: 11ch;
+.admin-link-copy {
+  font-size: 0.92rem;
+  color: #666666;
 }
 
-.hero-overlay p {
-  max-width: 38ch;
+.admin-link-arrow {
+  font-size: 1.2rem;
+}
+
+.admin-link-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: var(--light);
+  display: grid;
+  place-items: center;
+}
+
+.admin-link-icon svg {
+  width: 20px;
+  height: 20px;
 }
 
 .admin-section {
@@ -435,62 +498,57 @@ button {
 .admin-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(17, 17, 17, 0.58);
-  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.52);
 }
 
 .admin-card {
   position: relative;
   z-index: 1;
   width: min(100%, 420px);
-  padding: 30px;
-  border: 1px solid var(--line);
-  border-radius: 32px;
-  background:
-    linear-gradient(135deg, rgba(17, 17, 17, 0.98) 0%, rgba(63, 63, 63, 0.96) 100%);
+  padding: 28px;
+  border-radius: 24px;
+  background: #111111;
   color: #ffffff;
-  box-shadow: var(--shadow);
 }
 
 .admin-close {
   position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.12);
+  top: 16px;
+  right: 16px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
   color: #ffffff;
   display: grid;
   place-items: center;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
 }
 
 .admin-card .eyebrow {
-  color: rgba(255, 255, 255, 0.56);
+  color: rgba(255, 255, 255, 0.68);
 }
 
 .admin-card h2 {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
 }
 
 .admin-emblem {
-  width: 190px;
-  height: 190px;
-  margin: 26px auto 24px;
+  width: 140px;
+  height: 140px;
+  margin: 22px auto;
   border-radius: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  background: rgba(255, 255, 255, 0.96);
-  color: var(--text);
+  background: #ffffff;
+  color: var(--primary);
   display: grid;
   place-items: center;
 }
 
 .admin-emblem svg {
-  width: 76px;
-  height: 76px;
+  width: 58px;
+  height: 58px;
 }
 
 .admin-form .field + .field {
@@ -498,23 +556,22 @@ button {
 }
 
 .admin-form .field span {
-  color: rgba(255, 255, 255, 0.74);
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .admin-form input {
-  background: #ffffff;
   border-color: transparent;
 }
 
 .admin-submit {
-  background: rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.24);
   cursor: pointer;
 }
 
 .admin-submit.is-active,
 .admin-submit:hover {
   background: #ffffff;
-  color: var(--text);
+  color: var(--primary);
 }
 
 @media (max-width: 980px) {
@@ -522,64 +579,49 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .hero-panel {
-    min-height: 420px;
+  .hero-panel,
+  .login-panel {
+    min-height: auto;
   }
 
-  .hero-overlay h2 {
-    max-width: 13ch;
+  .hero-panel {
+    min-height: 520px;
+  }
+
+  .hero-metrics {
+    grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 640px) {
   .login-page {
-    padding: 20px 16px 44px;
+    width: min(100% - 24px, 1200px);
+    margin: 16px auto 32px;
   }
 
-  .login-board,
-  .admin-card {
-    border-radius: 24px;
+  .hero-panel {
+    display: none;
   }
 
-  .login-panel,
   .hero-overlay,
+  .login-shell,
+  .currency-panel,
+  .login-form,
   .admin-card {
-    padding: 24px;
+    padding: 20px;
   }
 
-  .brand-lockup {
-    gap: 12px;
+  .hero-panel,
+  .login-shell,
+  .admin-card {
+    border-radius: 22px;
   }
 
-  .brand-mark {
-    width: 68px;
-    height: 68px;
-    border-radius: 18px;
+  .form-grid {
+    grid-template-columns: 1fr;
   }
 
-  .brand-mark img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .brand-copy strong {
-    font-size: 1.5rem;
-  }
-
-  .login-copy {
-    margin-top: 26px;
-  }
-
-  .social-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .social-button {
-    height: 62px;
-  }
-
-  .admin-emblem {
-    width: 160px;
-    height: 160px;
+  .hero-copy-block h2 {
+    max-width: 12ch;
   }
 }

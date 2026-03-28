@@ -2,13 +2,7 @@ import { watchProducts } from "./firestore-service.js";
 
 const DEFAULT_IMAGE = "Eg.jpg";
 const MAX_HOME_PRODUCTS = 8;
-const CART_BUTTON_ICON = `
-  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-    <path d="M3 5h2l2.2 9.2a1 1 0 0 0 1 .8h8.9a1 1 0 0 0 1-.8L20 8H7"></path>
-    <circle cx="10" cy="19" r="1.5"></circle>
-    <circle cx="17" cy="19" r="1.5"></circle>
-  </svg>
-`;
+const PRODUCT_IMAGE_STORAGE_KEY = "product-detail-image";
 
 const homeProductsSection = document.querySelector(".products");
 const homeProductsGrid = homeProductsSection?.querySelector(".product-grid") ?? null;
@@ -67,11 +61,32 @@ const normalizeProduct = (product = {}) => ({
 
 const formatBasePrice = (amount) => `GHS ${Number(amount || 0).toFixed(2)}`;
 
+const createProductLink = (product) => {
+  const params = new URLSearchParams();
+  params.set("product", product.id);
+  return `product-detail.html?${params.toString()}`;
+};
+
 const createHomeProductCard = (product) => {
   const item = document.createElement("div");
   item.className = "product-item";
   item.dataset.productId = product.id;
   item.dataset.category = product.category;
+  item.tabIndex = 0;
+  item.setAttribute("role", "link");
+  item.addEventListener("click", () => {
+    window.sessionStorage.setItem(`${PRODUCT_IMAGE_STORAGE_KEY}:${product.id}`, product.image);
+    window.location.href = createProductLink(product);
+  });
+  item.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") {
+      return;
+    }
+
+    event.preventDefault();
+    window.sessionStorage.setItem(`${PRODUCT_IMAGE_STORAGE_KEY}:${product.id}`, product.image);
+    window.location.href = createProductLink(product);
+  });
 
   const image = document.createElement("img");
   image.src = product.image;
@@ -95,15 +110,9 @@ const createHomeProductCard = (product) => {
   info.className = "product-item-info";
   info.append(price, name, category);
 
-  const button = document.createElement("button");
-  button.type = "button";
-  button.className = "product-add-btn";
-  button.setAttribute("aria-label", `Add ${product.name} to cart`);
-  button.innerHTML = CART_BUTTON_ICON;
-
   const bottom = document.createElement("div");
   bottom.className = "product-item-bottom";
-  bottom.append(info, button);
+  bottom.append(info);
 
   item.append(image, bottom);
   return item;
